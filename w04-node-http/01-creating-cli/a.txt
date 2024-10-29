@@ -1,0 +1,1 @@
+create a nodejs program that let's you read through a file (that it takes as an input) & count the number of words in it
