@@ -1,15 +1,20 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
 // promisified
 
-async function readFileAsync() {
-    try {
-        const data = await fs.readFile("./a.txt", "utf-8");
-        console.log(`File content: ${data}`);
-        console.log(`Successfully read the file.`);
-    } catch (err) {
-        console.error(`Error reading file: ${err.message}`);
-    }
-}
+const readFileAsync = new Promise( (resolve, reject) => {
+    fs.readFile("./a.txt", "utf-8", (err, data) => {
+        if (err) {
+            reject(`File not found.`)
+        } else {
+            resolve(data)
+        }
+    });
+})
 
-readFileAsync();
+readFileAsync.then((data) => {
+    console.log(`File contents: ${data}`)
+    console.log(`Files has been read.`)
+}).catch( (err) => {
+    console.log(err)
+})
